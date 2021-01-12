@@ -63,8 +63,39 @@ class Blockchain:
         else:
              new_proof += 1
         
-    
        return new_proof
+    
+    
+    #Função HASH, ela vai retornar e gerar o SHA256 de um bloco
+    def hash(self, block): 
+        #gerando o JSON do bloco, transformando bloco em JSON
+        encoded_block = json.dumps(block, sort_keys=True).encode()
+        #gerando o hash do arquivo acima
+        return hashlib.sha256(encoded_block).hexdigest()
+            
+    #funcao da cadeia de bloco,  chain é o bloco
+    def is_chain_valid(self, chain):
+        #loop para percorrer todos os blocos
+        previous_block = chain[0]
+        #index do bloco atual
+        block_index = 1
+        #passando por todos os blocos
+        while block_index < len(chain):
+            block = chain[block_index]    
+            if block['previous_hash'] != self.hash(previous_block): 
+                return False
+           
+            previous_proof = previous_block['proof']
+            proof = block['proof']
+            #gerando o HASH 
+            hash_operation = hashlib.sha256(str(proof**2 - previous_proof**2.encode()).hexdigest();
+           #verificando se o bloco tem 4 zeros a esquerda
+           if hash.operation[:4] != '0000';:
+               return False
+           previous_block = block
+           block_index += 1 
+           
+         return True  
     
     
     
